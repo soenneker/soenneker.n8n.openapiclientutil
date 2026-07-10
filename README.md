@@ -10,3 +10,9 @@
 ```
 dotnet add package Soenneker.N8n.OpenApiClientUtil
 ```
+
+The parameterless `Get()` uses `N8N:ApiKey` and `N8n:ClientBaseUrl`. Pass connection values explicitly to work with multiple n8n instances:
+
+```csharp
+N8nOpenApiClient tenantClient = await n8nOpenApiClientUtil.Get(tenantApiKey, tenantBaseUrl);
+```
