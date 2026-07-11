@@ -19,7 +19,7 @@ public sealed class N8nOpenApiClientUtil : IN8nOpenApiClientUtil
 {
     private readonly SingletonDictionary<N8nOpenApiClient> _clients;
     private readonly IN8nOpenApiHttpClient _httpClientUtil;
-    private readonly string _apiKey;
+    private readonly IConfiguration _configuration;
     private readonly string _baseUrl;
     private readonly string _authHeaderName;
     private readonly string _authHeaderValueTemplate;
@@ -27,7 +27,7 @@ public sealed class N8nOpenApiClientUtil : IN8nOpenApiClientUtil
     public N8nOpenApiClientUtil(IN8nOpenApiHttpClient httpClientUtil, IConfiguration configuration)
     {
         _httpClientUtil = httpClientUtil;
-        _apiKey = configuration.GetValueStrict<string>("N8N:ApiKey");
+        _configuration = configuration;
         _baseUrl = configuration["N8n:ClientBaseUrl"] ?? "https://{your-n8n}/api/v1";
         _authHeaderName = configuration["N8n:AuthHeaderName"] ?? "X-N8N-API-KEY";
         _authHeaderValueTemplate = configuration["N8n:AuthHeaderValueTemplate"] ?? "{token}";
@@ -37,7 +37,7 @@ public sealed class N8nOpenApiClientUtil : IN8nOpenApiClientUtil
     private async ValueTask<N8nOpenApiClient> CreateClient(string connectionKey, CancellationToken token)
     {
         (string apiKey, string baseUrl) = ParseConnectionKey(connectionKey);
-        HttpClient httpClient = await _httpClientUtil.Get(token).NoSync();
+        HttpClient httpClient = await _httpClientUtil.Get(apiKey, baseUrl, token).NoSync();
         string authHeaderValue = _authHeaderValueTemplate.Replace("{token}", apiKey, StringComparison.Ordinal);
 
         var requestAdapter = new HttpClientRequestAdapter(
@@ -51,7 +51,7 @@ public sealed class N8nOpenApiClientUtil : IN8nOpenApiClientUtil
 
     public ValueTask<N8nOpenApiClient> Get(CancellationToken cancellationToken = default)
     {
-        return Get(_apiKey, _baseUrl, cancellationToken);
+        return Get(_configuration.GetValueStrict<string>("N8N:ApiKey"), _baseUrl, cancellationToken);
     }
 
     public ValueTask<N8nOpenApiClient> Get(string apiKey, CancellationToken cancellationToken = default)
