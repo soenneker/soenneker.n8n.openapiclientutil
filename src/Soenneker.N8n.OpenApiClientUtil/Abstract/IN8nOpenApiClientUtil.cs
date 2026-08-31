@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 namespace Soenneker.N8n.OpenApiClientUtil.Abstract;
 
 /// <summary>
-/// Exposes a cached OpenAPI client instance.
+/// Provides cached, authenticated n8n API clients for one or more servers.
 /// </summary>
-public interface IN8nOpenApiClientUtil: IDisposable, IAsyncDisposable
+public interface IN8nOpenApiClientUtil : IDisposable, IAsyncDisposable
 {
     /// <summary>
-    /// Gets the value.
+    /// Gets a client using the configured API key and base URL.
     /// </summary>
     /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task containing the result of the operation.</returns>
+    /// <returns>The configured n8n client.</returns>
     ValueTask<N8nOpenApiClient> Get(CancellationToken cancellationToken = default);
 
     /// <summary>Gets a client for a specific API key using the configured base URL.</summary>
