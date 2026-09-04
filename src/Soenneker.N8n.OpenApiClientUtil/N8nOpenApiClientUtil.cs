@@ -14,6 +14,7 @@ using Soenneker.N8n.OpenApiClient;
 
 namespace Soenneker.N8n.OpenApiClientUtil;
 
+/// <inheritdoc cref="IN8nOpenApiClientUtil" />
 public sealed class N8nOpenApiClientUtil : IN8nOpenApiClientUtil
 {
     private readonly SingletonDictionary<N8nOpenApiClient> _clients;
