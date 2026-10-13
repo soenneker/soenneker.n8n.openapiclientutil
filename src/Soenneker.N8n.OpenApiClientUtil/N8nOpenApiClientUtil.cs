@@ -45,7 +45,7 @@ public sealed class N8nOpenApiClientUtil : IN8nOpenApiClientUtil
 
     public ValueTask<N8nOpenApiClient> Get(CancellationToken cancellationToken = default)
     {
-        return Get(_configuration.GetValueStrict<string>("N8n:ApiKey"), GetConfiguredBaseUrl(), cancellationToken);
+        return Get(_configuration.GetStringStrict("N8n:ApiKey"), GetConfiguredBaseUrl(), cancellationToken);
     }
 
     public ValueTask<N8nOpenApiClient> Get(string apiKey, CancellationToken cancellationToken = default)
