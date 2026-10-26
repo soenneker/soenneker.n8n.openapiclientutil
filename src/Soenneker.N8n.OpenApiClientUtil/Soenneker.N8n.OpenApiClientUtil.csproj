@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFramework>net11.0</TargetFramework>
         <IsAotCompatible>true</IsAotCompatible>
         <Nullable>enable</Nullable>
         <Platforms>AnyCPU</Platforms>
@@ -9,7 +9,7 @@
 
     <PropertyGroup>
         <Description>Creates and caches authenticated n8n API clients for one or more servers.</Description>
-        <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
+        <Version Condition="'$(BUILD_VERSION)' == ''">11.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.N8n.OpenApiClientUtil</AssemblyName>
         <PackageId>Soenneker.N8n.OpenApiClientUtil</PackageId>
@@ -43,7 +43,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.N8n.HttpClients" Version="4.0.183" />
+        <PackageReference Include="Soenneker.N8n.HttpClients" Version="4.0.184" />
         <PackageReference Include="Soenneker.N8n.OpenApiClient" Version="4.0.80" />
     </ItemGroup>
 </Project>
